@@ -3,7 +3,7 @@
 }
 
 .table{
-    width: 100vh;    
+    width: 100%;    
     margin-left: auto;
     margin-right: auto;
 }
@@ -15,6 +15,5 @@
 
 .addbtn{
     position:relative;
-    float:left;
-    left:80%;
+    float:right;
 }

@@ -19,7 +19,7 @@ export class CustomerFormComponent {
 
     public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
     
-    formRegistro: FormGroup;
+    formCustomer: FormGroup;
     statusList: StatusListEnum[]=[];
 
     customerData: Customer=new Customer();
@@ -31,7 +31,7 @@ export class CustomerFormComponent {
       
       this.customerData=data;
 
-      this.formRegistro = new FormGroup({
+      this.formCustomer = new FormGroup({
         FirstName: new FormControl(null, [ Validators.required ]),
         LastName: new FormControl(null, [ Validators.required ]),
         Status: new FormControl(null, [ Validators.required ]),
@@ -43,15 +43,15 @@ export class CustomerFormComponent {
     }
     editForm(){
       /*********************************************************/ 
-      this.formRegistro.patchValue(this.customerData);  
+      this.formCustomer.patchValue(this.customerData);  
 
     }
   save(){
-    if(this.formRegistro.valid){
-      this.customerData = Object.assign(this.customerData, this.formRegistro.value);
+    if(this.formCustomer.valid){
+      this.customerData = Object.assign(this.customerData, this.formCustomer.value);
 
     }else{
-      this.formRegistro.markAllAsTouched()
+      this.formCustomer.markAllAsTouched()
     }
    
 

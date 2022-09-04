@@ -17,6 +17,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import { TextMaskModule } from 'angular2-text-mask';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     MatFormFieldModule,
     MatCardModule,
     BrowserAnimationsModule,
+    FlexLayoutModule,
     TextMaskModule
   ],
   providers: [],
