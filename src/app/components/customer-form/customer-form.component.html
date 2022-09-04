@@ -1,0 +1,65 @@
+<h2 mat-dialog-title>Customer Data</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formRegistro">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <mat-form-field appearance="outline">
+                                <mat-label>
+                                    First Name
+                                </mat-label>
+                                <input formControlName="FirstName" matInput name="FirstName"   >
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm">
+                            <mat-form-field appearance="outline">
+                                <mat-label>
+                                    Last Name
+                                </mat-label>
+                                <input formControlName="LastName" matInput name="LastName" >
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm">
+                            <mat-form-field appearance="outline" >
+                                <mat-label>
+                                    Status
+                                </mat-label>
+                                <select matNativeControl  formControlName="Status">
+                                    <option value=""></option>
+                                  </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <mat-form-field appearance="outline">
+                                <mat-label>
+                                    Email
+                                </mat-label>
+                                <input formControlName="Email" matInput name="Email"   >
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm">
+                            <mat-form-field appearance="outline">
+                                <mat-label>
+                                    Phone
+                                </mat-label>
+                                <input formControlName="Phone" matInput name="Phone"   [textMask]="{mask: mask}">
+                            </mat-form-field>
+                        </div>
+                       
+                    </div>
+                </div>
+            
+            </form>
+        </mat-card-content>
+    </mat-card>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button type="submit" mat-button  color="primary" cdkFocusInitial (click)="save()">Save</button>
+</mat-dialog-actions>
+
+
