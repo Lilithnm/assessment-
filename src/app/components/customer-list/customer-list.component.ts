@@ -41,9 +41,10 @@ export class CustomerListComponent implements OnInit {
                 this.dataSource = new MatTableDataSource(customerList);
                 this.dataSource.sort = this.sort? this.sort : null;
                 this.dataSource.paginator = this.paginator ? this.paginator : null;
-                
-                console.log(this.dataSource)
-                console.log(this.dataSource.sort)
+                this.dataSource.filterPredicate = (data: Customer, filter:string) => {
+                  const textToSearch = data.LastName && data.LastName.toLowerCase() || '';
+                  return textToSearch.indexOf(filter) !== -1;
+                 };
             })
           )
           .subscribe();
@@ -64,18 +65,10 @@ export class CustomerListComponent implements OnInit {
 
       applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-
+        this.dataSource.filter = filterValue;
         if (this.dataSource.paginator) {
           this.dataSource.paginator.firstPage();
         }
       }
 
-      announceSortChange(sortState: Sort) {
-        // This example uses English messages. If your application supports
-        // multiple language, you would internationalize these strings.
-        // Furthermore, you can customize the message to add additional
-        // details about the values being sorted.
-       console.log(sortState)
-      }
 }
