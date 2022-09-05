@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Customer } from '../models/customer.model'; 
+import { customers } from './data';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
-  private storageInitialised = false;
 
-  constructor() {}
+  customers = customers;
+  
+  constructor() {    
+    localStorage.setItem('customers', JSON.stringify(this.customers))
+  }
 
   async getCustomers(): Promise<Customer[]> {
     return (await JSON.parse(localStorage.getItem('customers')||'') || []);
@@ -15,3 +19,5 @@ export class CustomerService {
     return localStorage.setItem('customers', JSON.stringify(customers));
   }
 }
+
+
