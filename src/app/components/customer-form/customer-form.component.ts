@@ -53,7 +53,7 @@ export class CustomerFormComponent {
   save(){
     if(this.formCustomer.valid){
       this.customerData = Object.assign(this.customerData, this.formCustomer.value);      
-      this.store.dispatch(addCustomer({ content: this.customerData }));
+      this.store.dispatch(addCustomer({ data: this.customerData }));
       this.dialog.closeAll()
 
     }else{

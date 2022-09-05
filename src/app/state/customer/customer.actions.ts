@@ -3,7 +3,7 @@ import { Customer } from '../../models/customer.model';
 
 export const addCustomer = createAction(
   '[Customer Page] Add Customer',
-  props<{ content: Customer }>()
+  props<{ data: Customer }>()
 );
 
 export const loadCustomers = createAction('[Customer Page] Load Customers');
