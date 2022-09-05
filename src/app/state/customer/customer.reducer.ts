@@ -20,7 +20,8 @@ export const customerReducer = createReducer(
   // Add the new customer to the customers array
   on(addCustomer, (state, { data }) => ({
     ...state,
-    customers: [...state.customers, { Id: crypto.randomUUID(), data: data }],
+    customers: [...state.customers, { Id: crypto.randomUUID(),
+               FirstName : data.FirstName, LastName: data.LastName, Status: data.Status, Email: data.Email, Phone: data.Phone }],
   })),
   // Trigger loading the customers
   on(loadCustomers, (state) => ({ ...state, status: 'loading' })),

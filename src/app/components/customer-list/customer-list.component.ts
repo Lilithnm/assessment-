@@ -9,7 +9,7 @@ import { map, Observable, Subscription } from 'rxjs';
 import { loadCustomers } from '../../state/customer/customer.actions';
 import { selectAllCustomers } from '../../state/customer/customer.selectors';
 import { AppState } from 'src/app/state/app.state';
-import { CustomerState } from 'src/app/state/customer/customer.reducer';
+import {MatSort, Sort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-customer-list',
@@ -25,7 +25,8 @@ export class CustomerListComponent implements OnInit {
     dataSource = new MatTableDataSource<Customer>();
 
     customer: Customer=new Customer();
-    @ViewChild(MatPaginator) paginator?: MatPaginator;
+    @ViewChild(MatPaginator) paginator?: MatPaginator;      
+    @ViewChild(MatSort) sort?: MatSort;
 
       constructor(public dialog: MatDialog, private store: Store<AppState>) {
         
@@ -38,7 +39,11 @@ export class CustomerListComponent implements OnInit {
           .pipe(
             map((customerList: Customer[]) => {
                 this.dataSource = new MatTableDataSource(customerList);
+                this.dataSource.sort = this.sort? this.sort : null;
                 this.dataSource.paginator = this.paginator ? this.paginator : null;
+                
+                console.log(this.dataSource)
+                console.log(this.dataSource.sort)
             })
           )
           .subscribe();
@@ -64,5 +69,13 @@ export class CustomerListComponent implements OnInit {
         if (this.dataSource.paginator) {
           this.dataSource.paginator.firstPage();
         }
+      }
+
+      announceSortChange(sortState: Sort) {
+        // This example uses English messages. If your application supports
+        // multiple language, you would internationalize these strings.
+        // Furthermore, you can customize the message to add additional
+        // details about the values being sorted.
+       console.log(sortState)
       }
 }

@@ -21,6 +21,7 @@ import { StoreModule } from '@ngrx/store';
 import { customerReducer } from './state/customer/customer.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CustomerEffects } from './state/customer/customer.effects';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -34,6 +35,7 @@ import { CustomerEffects } from './state/customer/customer.effects';
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatSortModule,
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
