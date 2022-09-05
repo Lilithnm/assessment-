@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { CustomerListComponent } from './components/customer-list/customer-list.component';
-import { CustomerFormComponent } from './components/customer-form/customer-form.component';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {MatTableModule} from '@angular/material/table';
@@ -18,6 +14,14 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import { TextMaskModule } from 'angular2-text-mask';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { CustomerListComponent } from './components/customer-list/customer-list.component';
+import { CustomerFormComponent } from './components/customer-form/customer-form.component';
+import { StoreModule } from '@ngrx/store';
+import { customerReducer } from './state/customer/customer.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CustomerEffects } from './state/customer/customer.effects';
+
 
 
 @NgModule({
@@ -40,7 +44,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    TextMaskModule
+    TextMaskModule,
+    StoreModule.forRoot({ customers: customerReducer }),
+    EffectsModule.forRoot([CustomerEffects]),
   ],
   providers: [],
   bootstrap: [CustomerListComponent]

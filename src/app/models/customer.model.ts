@@ -2,13 +2,7 @@ export class Customer {
     Id?: number;
     FirstName?: string;
     LastName?: string;
-    Status?: StatusListEnum;
+    Status?: string;
     Email?: string;
     Phone?: string;
 };
-
-export enum StatusListEnum{
-    Active,
-    Pending,
-    Inactive
-}

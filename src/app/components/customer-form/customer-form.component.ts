@@ -6,7 +6,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Component, OnInit, ViewChild,AfterViewInit } from '@angular/core';
 
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Customer, StatusListEnum } from 'src/app/models/customer.model';
+import { Customer } from 'src/app/models/customer.model';
+
+import { addCustomer, loadCustomers } from '../../state/customer/customer.actions';
+import { selectAllCustomers } from '../../state/customer/customer.selectors';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-customer-form',
@@ -20,14 +24,14 @@ export class CustomerFormComponent {
     public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
     
     formCustomer: FormGroup;
-    statusList: StatusListEnum[]=[];
 
     customerData: Customer=new Customer();
+    statusList=[{option:'Active'},{option:'Pending'},{option:'Inactive'}];
 
     constructor(private fb: FormBuilder, 
       @Optional() @Inject(MAT_DIALOG_DATA) public data: Customer,
-      public dialog: MatDialog
-      ) { 
+      public dialog: MatDialog,
+      private store: Store) {
       
       this.customerData=data;
 
@@ -48,7 +52,9 @@ export class CustomerFormComponent {
     }
   save(){
     if(this.formCustomer.valid){
-      this.customerData = Object.assign(this.customerData, this.formCustomer.value);
+      this.customerData = Object.assign(this.customerData, this.formCustomer.value);      
+      this.store.dispatch(addCustomer({ content: this.customerData }));
+      this.dialog.closeAll()
 
     }else{
       this.formCustomer.markAllAsTouched()
