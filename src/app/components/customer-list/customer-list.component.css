@@ -12,7 +12,9 @@
     position:relative;
     float:center;
 }
-
+mat-card-content{
+    overflow-x: auto;
+}
 .addbtn{
     position:relative;
     float:right;
