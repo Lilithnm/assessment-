@@ -1,12 +1,11 @@
-import { map, startWith, takeUntil } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import {  Subject } from 'rxjs';
 import { Inject, Optional } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { Component, OnInit, ViewChild,AfterViewInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Customer } from 'src/app/models/customer.model';
+import { Customer } from '../../models/customer.model';
 
 import { addCustomer, editCustomer } from '../../state/customer/customer.actions';
 import { Store } from '@ngrx/store';
