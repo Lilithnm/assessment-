@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { addCustomer, loadCustomers, loadCustomersSuccess, loadCustomersFailure} from './customer.actions';
+import { addCustomer, loadCustomers, loadCustomersSuccess, loadCustomersFailure, removeCustomer, editCustomer} from './customer.actions';
 import { CustomerService } from 'src/app/services/customer.service'; 
 import { of, from } from 'rxjs';
 import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
@@ -32,7 +32,7 @@ export class CustomerEffects {
   saveCustomers$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(addCustomer),
+        ofType(addCustomer, removeCustomer, editCustomer),
         withLatestFrom(this.store.select(selectAllCustomers)),
         switchMap(([action, customers]) => from(this.customerService.saveCustomers(customers)))
       ),

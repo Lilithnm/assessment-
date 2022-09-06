@@ -6,6 +6,15 @@ export const addCustomer = createAction(
   props<{ data: Customer }>()
 );
 
+export const removeCustomer = createAction(
+  '[Customer Page] Remove Customer',
+  props<{ Id: string }>()
+);
+export const editCustomer = createAction(
+  '[Customer Page] Edit Customer',
+  props<{data: Customer }>()
+);
+
 export const loadCustomers = createAction('[Customer Page] Load Customers');
 
 export const loadCustomersSuccess = createAction(

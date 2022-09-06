@@ -8,8 +8,7 @@ import { Component, OnInit, ViewChild,AfterViewInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Customer } from 'src/app/models/customer.model';
 
-import { addCustomer, loadCustomers } from '../../state/customer/customer.actions';
-import { selectAllCustomers } from '../../state/customer/customer.selectors';
+import { addCustomer, editCustomer } from '../../state/customer/customer.actions';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -26,6 +25,7 @@ export class CustomerFormComponent {
     formCustomer: FormGroup;
 
     customerData: Customer=new Customer();
+    saveCustomer: Customer = new Customer()
     statusList=[{option:'Active'},{option:'Pending'},{option:'Inactive'}];
 
     constructor(private fb: FormBuilder, 
@@ -36,6 +36,7 @@ export class CustomerFormComponent {
       this.customerData=data;
 
       this.formCustomer = new FormGroup({
+        Id: new FormControl(null),
         FirstName: new FormControl(null, [ Validators.required ]),
         LastName: new FormControl(null, [ Validators.required ]),
         Status: new FormControl(null, [ Validators.required ]),
@@ -51,9 +52,14 @@ export class CustomerFormComponent {
 
     }
   save(){
-    if(this.formCustomer.valid){
-      this.customerData = Object.assign(this.customerData, this.formCustomer.value);      
-      this.store.dispatch(addCustomer({ data: this.customerData }));
+    if(this.formCustomer.valid){    
+      this.saveCustomer = Object.assign(this.saveCustomer, this.formCustomer.value);    
+      if(this.saveCustomer.Id){
+        this.store.dispatch(editCustomer({ data: this.saveCustomer }));
+      }else{
+        
+        this.store.dispatch(addCustomer({ data: this.saveCustomer }));
+      }
       this.dialog.closeAll()
 
     }else{

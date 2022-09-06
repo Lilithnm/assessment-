@@ -16,6 +16,7 @@ export class CustomerService {
   }
 
   async saveCustomers(customers: Customer[]) {
+    console.log(customers)
     return localStorage.setItem('customers', JSON.stringify(customers));
   }
 }

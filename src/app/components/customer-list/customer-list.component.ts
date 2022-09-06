@@ -6,10 +6,11 @@ import { CustomerFormComponent } from '../customer-form/customer-form.component'
 import { Customer } from 'src/app/models/customer.model';
 import { Store } from '@ngrx/store';
 import { map, Observable, Subscription } from 'rxjs';
-import { loadCustomers } from '../../state/customer/customer.actions';
+import { loadCustomers, removeCustomer } from '../../state/customer/customer.actions';
 import { selectAllCustomers } from '../../state/customer/customer.selectors';
 import { AppState } from 'src/app/state/app.state';
 import {MatSort, Sort} from '@angular/material/sort';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-customer-list',
@@ -21,7 +22,7 @@ export class CustomerListComponent implements OnInit {
     customersSubscription?: Subscription;
     public allCustomers$ = this.store.select(selectAllCustomers); 
 
-    displayedColumns: string[] = ['Id', 'FirstName','LastName' ,'Status', 'Email','Phone'];
+    displayedColumns: string[] = ['Id', 'FirstName','LastName' ,'Status', 'Email','Phone','Actions'];
     dataSource = new MatTableDataSource<Customer>();
 
     customer: Customer=new Customer();
@@ -55,7 +56,24 @@ export class CustomerListComponent implements OnInit {
 
       }
       delete(customerDel :Customer){
-    
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "Do you want to delete the customer?",
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.store.dispatch(removeCustomer({ Id: customerDel.Id?customerDel.Id:''  }));
+            Swal.fire(
+              'Deleted!',
+              'The customer has been deleted.',
+              'success'
+            )
+          }
+        })
       }
       newCustomer(){
         this.customer=new Customer();
