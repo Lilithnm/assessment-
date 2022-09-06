@@ -35,6 +35,10 @@ export class CustomerListComponent implements OnInit {
       }
 
       ngOnInit() {
+        this.getCustomerData()
+      }
+
+      getCustomerData(){
         this.store.dispatch(loadCustomers());
         this.customersSubscription = this.allCustomers$
           .pipe(
@@ -43,7 +47,7 @@ export class CustomerListComponent implements OnInit {
                 this.dataSource.sort = this.sort? this.sort : null;
                 this.dataSource.paginator = this.paginator ? this.paginator : null;
                 this.dataSource.filterPredicate = (data: Customer, filter:string) => {
-                  const textToSearch = data.LastName && data.LastName.toLowerCase() || '';
+                  const textToSearch = data.LastName && data.LastName.toLowerCase()  || '';
                   return textToSearch.indexOf(filter) !== -1;
                  };
             })

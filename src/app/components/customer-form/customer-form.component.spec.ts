@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
+import { TextMaskModule } from 'angular2-text-mask';
 import { customerReducer } from 'src/app/state/customer/customer.reducer';
 import { CustomerFormComponent } from './customer-form.component';
 
@@ -25,7 +26,8 @@ describe('CustomerFormComponent', () => {
         MatDialogModule,
         MatSelectModule,
         MatFormFieldModule,
-        MatCardModule,        
+        MatCardModule,     
+        TextMaskModule,   
        BrowserAnimationsModule,
       StoreModule.forRoot({ customers: customerReducer })
       ]
@@ -40,4 +42,18 @@ describe('CustomerFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('form invalid when empty', () => {
+    expect(component.formCustomer.valid).toBeFalsy();
+ });
+ 
+ it('should assign values to edit form', () => {
+  component.editForm()
+});
+
+ it('should save', () => {
+    component.save()
+  });
+
+
 });

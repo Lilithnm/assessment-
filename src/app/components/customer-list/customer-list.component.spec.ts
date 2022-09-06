@@ -12,11 +12,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { customerReducer } from 'src/app/state/customer/customer.reducer';
 import { CustomerListComponent } from './customer-list.component';
-
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { AppState } from 'src/app/state/app.state';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Customer } from 'src/app/models/customer.model';
 describe('CustomerListComponent', () => {
   let component: CustomerListComponent;
   let fixture: ComponentFixture<CustomerListComponent>;
-
+  let customerTest: Customer = new Customer();
+  let store: MockStore<{ loggedIn: boolean }>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ CustomerListComponent ],
@@ -30,7 +34,7 @@ describe('CustomerListComponent', () => {
         MatDialogModule,
         MatFormFieldModule,
         MatCardModule,         
-      BrowserAnimationsModule,
+      BrowserAnimationsModule,ReactiveFormsModule, 
       StoreModule.forRoot({ customers: customerReducer }) ]
     })
     .compileComponents();
@@ -40,7 +44,26 @@ describe('CustomerListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('creates', () => {
     expect(component).toBeTruthy();
+  });
+
+  
+  it('gets Customer Data', () => {
+    component.getCustomerData()
+    component.allCustomers$.subscribe((asyncData)=>{
+      expect(asyncData).toBeDefined();
+      })
+    });
+    
+    it('opens Customer Data Form Dialog', () => {
+      component.newCustomer()   
+  });
+
+  it('opens edit customer Form Dialog', () => {
+    component.edit(customerTest)   
+  });
+  it('opens delete confirm', () => {
+    component.delete(customerTest)   
   });
 });
