@@ -17,7 +17,3 @@
     position:relative;
     float:right;
 }
-
-mat-card-content{
-    overflow: auto;
-}
